@@ -1,11 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:guru_app/widgets/drawer_menu.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class Home extends StatelessWidget {
   String action = "Home";
   String selectedUrl;
+  Widget webView = WebView();
 
   final Completer<WebViewController> _controller =
       Completer<WebViewController>();
@@ -14,6 +16,7 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     switch(action){
       case "LogIn":
         selectedUrl = "https://www.guruwalk.com/login";
@@ -32,14 +35,20 @@ class Home extends StatelessWidget {
         title: Text(action),
         backgroundColor: Color(0xFFFF5A5F),
       ),
+      drawer: DrawerMenu(),
       body:
-          WebView(
-            initialUrl: selectedUrl,
-            javascriptMode: JavascriptMode.unrestricted,
-            onWebViewCreated: (WebViewController webViewController) {
-              _controller.complete(webViewController);
-            },
-          ),
+          Stack(
+            children: <Widget>[
+              WebView(
+                initialUrl: selectedUrl,
+                javascriptMode: JavascriptMode.unrestricted,
+                onWebViewCreated: (WebViewController webViewController) {
+                  _controller.complete(webViewController);
+                },
+              ),
+            ],
+          )
+
     );
   }
 }

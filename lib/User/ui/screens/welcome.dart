@@ -12,7 +12,6 @@ class Welcome extends StatelessWidget {
         children: <Widget>[
           GradientBack(height: null),
           WelcomeColumn()
-
         ],
       ),
     );
