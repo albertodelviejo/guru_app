@@ -48,14 +48,14 @@ Widget buttons(BuildContext context){
         ),
         Container(
           margin: EdgeInsets.only(top: 0.0),
+
           child:FlatButton(
             onPressed: (){
               Navigator.push(context, MaterialPageRoute(builder: (context) => Home(action: "Home")));
             },
             child:
           Text("Navigate as guest >",
-              style: TextStyle(color: Colors.white)),
-              shape: CircleBorder(side: BorderSide(color: Colors.transparent))
+              style: TextStyle(color: Colors.white))
         ),
         )
       ],

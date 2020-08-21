@@ -27,12 +27,12 @@ class Home extends StatelessWidget {
     }
 
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
         title: Text(action),
         backgroundColor: Color(0xFFFF5A5F),
       ),
-      body: Stack(
-        children: <Widget>[
+      body:
           WebView(
             initialUrl: selectedUrl,
             javascriptMode: JavascriptMode.unrestricted,
@@ -40,9 +40,6 @@ class Home extends StatelessWidget {
               _controller.complete(webViewController);
             },
           ),
-
-        ],
-      )
     );
   }
 }
