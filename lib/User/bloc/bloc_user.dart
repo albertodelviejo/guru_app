@@ -1,3 +1,8 @@
 class UserBloc {
-//TODO
+
+  //Business Logic Components
+
+  //Use case 1 : Login in the app from form
+
+
 }

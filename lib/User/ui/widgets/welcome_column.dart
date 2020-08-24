@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:guru_app/User/ui/screens/login.dart';
+import 'package:guru_app/User/ui/screens/register.dart';
 import 'package:guru_app/User/ui/widgets/rounded_button.dart';
 import 'package:guru_app/home.dart';
 
@@ -38,13 +40,13 @@ Widget buttons(BuildContext context){
         RoundedButton(
           buttonText: "Log In",
           onPressed: (){
-           Navigator.push(context, MaterialPageRoute(builder: (context) => Home(action: "LogIn")));
+           Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
           },
         ),
         RoundedButton(
           buttonText: "Register",
           onPressed: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => Home(action: "Register")));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => Register()));
           },
         ),
         Container(

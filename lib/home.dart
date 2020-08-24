@@ -10,7 +10,7 @@ class Home extends StatelessWidget {
   Widget webView = WebView();
 
   final Completer<WebViewController> _controller =
-      Completer<WebViewController>();
+  Completer<WebViewController>();
 
   Home({Key key, this.action});
 
@@ -30,24 +30,24 @@ class Home extends StatelessWidget {
     }
 
     return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        title: Text(action),
-        backgroundColor: Color(0xFFFF5A5F),
-      ),
-      drawer: DrawerMenu(),
-      body:
-          Stack(
-            children: <Widget>[
-              WebView(
-                initialUrl: selectedUrl,
-                javascriptMode: JavascriptMode.unrestricted,
-                onWebViewCreated: (WebViewController webViewController) {
-                  _controller.complete(webViewController);
-                },
-              ),
-            ],
-          )
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          title: Text(action),
+          backgroundColor: Color(0xFFFF5A5F),
+        ),
+        drawer: DrawerMenu(),
+        body:
+        Stack(
+          children: <Widget>[
+            WebView(
+              initialUrl: selectedUrl,
+              javascriptMode: JavascriptMode.unrestricted,
+              onWebViewCreated: (WebViewController webViewController) {
+                _controller.complete(webViewController);
+              },
+            ),
+          ],
+        )
 
     );
   }
