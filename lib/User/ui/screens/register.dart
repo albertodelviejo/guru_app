@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:guru_app/User/model/user.dart';
 import 'package:guru_app/User/ui/widgets/rounded_button.dart';
+import 'package:guru_app/widgets/drop_down_button.dart';
 import 'package:guru_app/widgets/gradient_back.dart';
+
+import '../../../home.dart';
 
 class Register extends StatelessWidget{
 
   final GlobalKey<FormState> _formRegisterKey = new GlobalKey<FormState>();
+  User user;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +23,7 @@ class Register extends StatelessWidget{
       body: Stack(
         children: <Widget>[
           GradientBack(),
-          registerForm(context)
+          registerForm(context, user)
         ],
       )
     );
@@ -26,9 +31,15 @@ class Register extends StatelessWidget{
 
 }
 
-Widget registerForm(BuildContext context) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.center,
+Widget registerForm(BuildContext context, User user) {
+  TextEditingController ecMail = new TextEditingController();
+  TextEditingController ecName = new TextEditingController();
+  TextEditingController ecSurname = new TextEditingController();
+  TextEditingController ecCityOR = new TextEditingController();
+  TextEditingController ecPassword = new TextEditingController();
+  return ListView(
+    scrollDirection: Axis.vertical,
+    shrinkWrap: true,
     children: <Widget>[
       Container(
         margin: EdgeInsets.only(
@@ -56,51 +67,75 @@ Widget registerForm(BuildContext context) {
               children: <Widget>[
                 TextFormField(
                   decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.mail)
+                      prefixIcon: Icon(Icons.mail),
+                      hintText: "Email"
                   ),
+                  style: TextStyle(
+                    decorationColor: Colors.white,
+                    color: Colors.white,
+                  ),
+                  controller: ecMail,
                   cursorColor: Colors.white,
-                  initialValue: "Email",
                 ),
                 TextFormField(
                   decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.person)
+                      prefixIcon: Icon(Icons.person),
+                      hintText: "Name"
                   ),
+                  style: TextStyle(
+                    decorationColor: Colors.white,
+                    color: Colors.white,
+                  ),
+                  controller: ecName,
                   cursorColor: Colors.white,
-                  initialValue: "Name",
                 ),
                 TextFormField(
                   decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.person_outline)
+                      prefixIcon: Icon(Icons.person_outline),
+                      hintText: "Surname",
                   ),
+                  style: TextStyle(
+                    decorationColor: Colors.white,
+                    color: Colors.white,
+                  ),
+                  controller: ecSurname,
                   cursorColor: Colors.white,
-                  initialValue: "Surname",
                 ),
                 TextFormField(
                   decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.location_city)
+                      prefixIcon: Icon(Icons.location_city),
+                      hintText: "City of residence"
                   ),
+                  style: TextStyle(
+                    decorationColor: Colors.white,
+                    color: Colors.white,
+                  ),
+                  controller: ecCityOR,
                   cursorColor: Colors.white,
-                  initialValue: "City of residence"
                 ),
+
+                DropDownButton(defaultValue: "English"),
                 TextFormField(
                   decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.language)
+                      prefixIcon: Icon(Icons.vpn_key),
+                      hintText: "Create a password"
                   ),
-                  cursorColor: Colors.white,
-                  initialValue: "Preferred Language",
-                ),
-                TextFormField(
-                  decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.vpn_key)
+                  style: TextStyle(
+                    decorationColor: Colors.white,
+                    color: Colors.white,
                   ),
+                  controller: ecPassword,
                   cursorColor: Colors.white,
-                  initialValue: "Create a password",
+                  obscureText: true
                 ),
                 Container(
                   margin: EdgeInsets.only(
                       top: 35.0
                   ),
-                  child: RoundedButton(buttonText: "Register"),
+                  child: RoundedButton(buttonText: "Register", onPressed: () => {
+                    user = User(userEmail: ecMail.text, password: ecPassword.text, userSurname: ecSurname.text, preferredLanguage: "", userName: ecName.text, cityOfResidence: ecCityOR.text ),
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => Home(action: "Home")))
+                  },),
                 ),
                 Container(
                     child: FlatButton(
@@ -119,3 +154,4 @@ Widget registerForm(BuildContext context) {
     ],
   );
 }
+

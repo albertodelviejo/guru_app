@@ -12,7 +12,16 @@ class Main extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        primaryColor: Colors.white,
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        inputDecorationTheme: new InputDecorationTheme(
+            labelStyle: new TextStyle(color: Colors.white),
+            focusColor: Colors.white,
+            focusedBorder: UnderlineInputBorder(
+        borderSide: BorderSide(color: Colors.white), //  when the TextFormField in focused
+      ) ,
+        ),
+
       ),
       home: Welcome(),
     );

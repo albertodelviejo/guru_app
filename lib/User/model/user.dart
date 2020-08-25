@@ -2,20 +2,50 @@ import 'package:flutter/material.dart';
 
 class User {
 
+  final String uid;
   final String userName;
-  final String userEmail;
+  final String givenName;
+  final String userSurname;
+  String userEmail;
   final String userPhoto;
-  final bool isLoggedIn;
+  String cityOfResidence;
+  final String preferredLanguage;
+  String password;
+  bool isLoggedIn;
 
-  User(this.userName, this.userEmail, this.userPhoto, this.isLoggedIn);
+  User({
+    Key key,
+    this.uid,
+    this.userName,
+    this.givenName,
+    this.userSurname,
+    @required this.userEmail,
+    this.cityOfResidence,
+    @required this.password,
+    this.userPhoto,
+    this.preferredLanguage,
+    this.isLoggedIn});
 
-  User.fromJson(Map<String, dynamic> json) : userName = json['user_name'], userEmail = json['user_email'], userPhoto = json['user_photo'], isLoggedIn = json['logged_in'];
+  factory User.fromJson(Map<String, dynamic> parsedJson){
+    Map json = parsedJson['data'];
+    return User(
+        uid: json['id'],
+        userName: json['username'],
+        givenName: json['given_name'],
+        userSurname: json['family_name'],
+        preferredLanguage: json['locale'],
+    );
+  }
 
   Map<String, dynamic> toJson() =>
       {
+        'uid' : uid,
         'user_name': userName,
         'user_email': userEmail,
         'user_photo' : userPhoto,
+        'city_of_residence' : cityOfResidence,
+        'preferred_language' : preferredLanguage,
+        'password' : password,
         'logged_in' : isLoggedIn
       };
 }
