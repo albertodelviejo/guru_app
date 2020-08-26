@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:guru_app/User/bloc/bloc_user.dart';
 import 'package:guru_app/User/model/user.dart';
 import 'package:guru_app/User/ui/widgets/rounded_button.dart';
 import 'package:guru_app/widgets/drop_down_button.dart';
@@ -9,6 +10,7 @@ import '../../../home.dart';
 class Register extends StatelessWidget{
 
   final GlobalKey<FormState> _formRegisterKey = new GlobalKey<FormState>();
+  UserBloc userBloc;
   User user;
 
   @override
@@ -23,7 +25,7 @@ class Register extends StatelessWidget{
       body: Stack(
         children: <Widget>[
           GradientBack(),
-          registerForm(context, user)
+          registerForm(context, userBloc)
         ],
       )
     );
@@ -31,7 +33,7 @@ class Register extends StatelessWidget{
 
 }
 
-Widget registerForm(BuildContext context, User user) {
+Widget registerForm(BuildContext context, UserBloc userBloc) {
   TextEditingController ecMail = new TextEditingController();
   TextEditingController ecName = new TextEditingController();
   TextEditingController ecSurname = new TextEditingController();
@@ -133,7 +135,8 @@ Widget registerForm(BuildContext context, User user) {
                       top: 35.0
                   ),
                   child: RoundedButton(buttonText: "Register", onPressed: () => {
-                    user = User(userEmail: ecMail.text, password: ecPassword.text, userSurname: ecSurname.text, preferredLanguage: "", userName: ecName.text, cityOfResidence: ecCityOR.text ),
+                    userBloc.user = User(userEmail: ecMail.text, password: ecPassword.text, userSurname: ecSurname.text, preferredLanguage: "", userName: ecName.text, cityOfResidence: ecCityOR.text ),
+                    userBloc.registerUser(),
                     Navigator.push(context, MaterialPageRoute(builder: (context) => Home(action: "Home")))
                   },),
                 ),

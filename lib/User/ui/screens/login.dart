@@ -1,32 +1,23 @@
 
 import 'package:flutter/material.dart';
+import 'package:guru_app/User/bloc/bloc_user.dart';
 import 'package:guru_app/User/model/user.dart';
 import 'package:guru_app/User/repository/json_api_rest.dart';
+import 'package:guru_app/User/ui/screens/register.dart';
 import 'package:guru_app/User/ui/widgets/rounded_button.dart';
 import 'package:guru_app/widgets/gradient_back.dart';
 
 import '../../../home.dart';
 
-class Login extends StatefulWidget{
-  @override
-  _LoginState createState() => _LoginState();
-}
-
-class _LoginState extends State<Login>{
+class Login extends StatelessWidget{
   final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
-  LoginWithRestfulApi loginWithRestfulApi = LoginWithRestfulApi();
-  User user;
+  RestfulApi loginWithRestfulApi = RestfulApi();
   bool _isLoading = false;
+  UserBloc userBloc;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      /*
-      appBar: AppBar(
-        title: Text("Log In"),
-        backgroundColor: Color(0xFFFF5A5F),
-      ),
-      */
       body: Center(
         child: _isLoading
             ? CircularProgressIndicator()
@@ -88,7 +79,7 @@ class _LoginState extends State<Login>{
                     ),
                     cursorColor: Colors.white,
                   ),
-
+                  /*
                   TextFormField(
                     controller: ecPassword,
                     decoration: InputDecoration(
@@ -102,17 +93,29 @@ class _LoginState extends State<Login>{
                     obscureText: true,
                     cursorColor: Colors.white,
                   ),
-
+                  */
                   Container(
                     margin: EdgeInsets.only(
-                        top: 35.0
+                        top:35.0
                     ),
                     child: RoundedButton(buttonText: "Log In",
                     onPressed: () async {
-                      setState(() => _isLoading = true);
+                      /*Login con usuario y contraseña
                       var res = await loginWithRestfulApi.loginUser(
-                      ecMail.text, ecPassword.text);
-                      setState(() => _isLoading = false);
+                      "albertodelviejosanchez@gmail.com", "12341234aA");
+                      */
+                      userBloc.user.userEmail = ecMail.text;
+                      var result = userBloc.sendEmailFromForm();
+                      if(result == null){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => Register()));
+                      }else if(result){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => Home(user: userBloc.user)));
+                      }else{
+
+                      }
+                    }
+
+                      /*
                     User user = User.fromJson(res);
                     print(user.userEmail);
                     if (user != null) {
@@ -125,6 +128,7 @@ class _LoginState extends State<Login>{
                       SnackBar(content: Text("Wrong email or")));
                       }
                       }
+                      */
                       ),
                   ),
 

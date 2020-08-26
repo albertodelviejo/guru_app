@@ -8,12 +8,11 @@ import 'User/model/user.dart';
 
 class Home extends StatelessWidget {
   String action = "Home";
+  User user;
   String selectedUrl;
   Widget webView = WebView();
-  User user;
-
-  final Completer<WebViewController> _controller =
-  Completer<WebViewController>();
+  WebViewController _myController;
+  bool _loadedPage = false;
 
   Home({Key key, this.action, this.user});
 
@@ -52,13 +51,27 @@ class Home extends StatelessWidget {
             WebView(
               initialUrl: selectedUrl,
               javascriptMode: JavascriptMode.unrestricted,
-              onWebViewCreated: (WebViewController webViewController) {
-                _controller.complete(webViewController);
+              onWebViewCreated: (controller){
+                _myController = controller;
+              },
+              onPageFinished: (url) {
+                print('Page finished loading: $url');
+
+                Future<String> js = _myController.evaluateJavascript("""({
+                        logged_in: window.logged_in,
+                        user_name: window.user_name,
+                        user_email: window.user_email,
+                        user_photo: window.user_photo
+                    })""".trim());
+                print(js);
               },
             ),
+            _loadedPage == false ? new Center(
+              child: new CircularProgressIndicator(
+                  backgroundColor: Colors.green),
+            ): new Container(),
           ],
         )
-
     );
   }
 }

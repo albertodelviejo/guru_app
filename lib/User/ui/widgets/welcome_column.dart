@@ -16,7 +16,7 @@ class WelcomeColumn extends StatelessWidget {
         Container(
           margin: EdgeInsets.only(
             left: 35.0,
-            top: 200.0,
+            top: 250.0,
             right: 35.0,
             bottom: 150.0
           ),
@@ -32,34 +32,17 @@ class WelcomeColumn extends StatelessWidget {
 Widget buttons(BuildContext context){
   return Container(
     margin: EdgeInsets.only(
-      top: 25,
+      top: 50.0,
         bottom: 0.0
     ),
     child: Column(
       children: <Widget>[
         RoundedButton(
-          buttonText: "Log In",
+          buttonText: "Start",
           onPressed: (){
            Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
           },
         ),
-        RoundedButton(
-          buttonText: "Register",
-          onPressed: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => Register()));
-          },
-        ),
-        Container(
-          margin: EdgeInsets.only(top: 0.0),
-          child:FlatButton(
-            onPressed: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => Home(action: "Home")));
-            },
-            child:
-          Text("Navigate as guest >",
-              style: TextStyle(color: Colors.white))
-        ),
-        )
       ],
     ),
   );

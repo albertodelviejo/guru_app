@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 class User {
 
   final String uid;
+  String token;
+  String authToken;
   final String userName;
   final String givenName;
   final String userSurname;
@@ -16,6 +18,8 @@ class User {
   User({
     Key key,
     this.uid,
+    this.token,
+    this.authToken,
     this.userName,
     this.givenName,
     this.userSurname,
@@ -30,6 +34,8 @@ class User {
     Map json = parsedJson['data'];
     return User(
         uid: json['id'],
+        token: json['token'],
+        authToken: json['auth_token'],
         userName: json['username'],
         givenName: json['given_name'],
         userSurname: json['family_name'],
